@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/cefe-logo.png";
 import marbleHero from "@/assets/marble-quarry-hero.png";
-
+//Alterado aqui
 const partners = [
   { name: "Cloud Virtus", id: "cloud-virtus" },
   { name: "META", id: "meta" },
