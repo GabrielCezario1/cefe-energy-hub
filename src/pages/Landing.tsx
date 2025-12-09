@@ -14,7 +14,7 @@ import {
   TrendingUp 
 } from "lucide-react";
 import logo from "@/assets/cefe-logo.png";
-import marbleHero from "@/assets/marble-quarry-hero.jpg";
+import marbleHero from "@/assets/marble-quarry-hero.png";
 
 const partners = [
   { name: "Cloud Virtus", id: "cloud-virtus" },
