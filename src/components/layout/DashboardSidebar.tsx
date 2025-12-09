@@ -9,6 +9,8 @@ import {
   Wrench,
   Users,
   Headphones,
+  Fuel,
+  TrendingUp,
 } from "lucide-react";
 import {
   Sidebar,
@@ -62,6 +64,16 @@ const menuItems = [
     title: "Suporte Técnico",
     url: "/dashboard/support",
     icon: Headphones,
+  },
+  {
+    title: "Gestão de Geradores",
+    url: "/dashboard/generators",
+    icon: Fuel,
+  },
+  {
+    title: "Resultado Econômico",
+    url: "/dashboard/economic-results",
+    icon: TrendingUp,
   },
 ];
 

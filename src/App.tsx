@@ -16,6 +16,8 @@ import Compliance from "./pages/dashboard/Compliance";
 import Maintenance from "./pages/dashboard/Maintenance";
 import Communication from "./pages/dashboard/Communication";
 import Support from "./pages/dashboard/Support";
+import Generators from "./pages/dashboard/Generators";
+import EconomicResults from "./pages/dashboard/EconomicResults";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,8 @@ const App = () => (
             <Route path="/dashboard/maintenance" element={<DashboardLayout><Maintenance /></DashboardLayout>} />
             <Route path="/dashboard/communication" element={<DashboardLayout><Communication /></DashboardLayout>} />
             <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
+            <Route path="/dashboard/generators" element={<DashboardLayout><Generators /></DashboardLayout>} />
+            <Route path="/dashboard/economic-results" element={<DashboardLayout><EconomicResults /></DashboardLayout>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

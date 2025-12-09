@@ -13,7 +13,6 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login - in production, this would authenticate with backend
     if (email && password) {
       navigate("/select-unit");
     }
@@ -28,7 +27,7 @@ const Login = () => {
           </div>
           <CardTitle className="text-3xl font-bold">CEFE</CardTitle>
           <CardDescription className="text-base">
-            Central de Fluxo de Energia
+            Central de Eficiência Energética da Thor
           </CardDescription>
         </CardHeader>
         <CardContent>
