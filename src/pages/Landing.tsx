@@ -121,7 +121,9 @@ const Landing = () => {
           {/* Hero Content */}
           <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
             <div className="max-w-4xl mx-auto">
-              <div className="flex justify-center mb-8">
+              <div className="flex items-center justify-center gap-4 mb-8 text-white">
+                <img src={logoCefe} alt="Logo CEFE - Thor" className="h-20 w-20 object-contain" />
+                <span className="text-2xl font-semibold">|</span>
                 <img src={logo} alt="CEFE Logo" className="h-20 w-60" />
               </div>
               
