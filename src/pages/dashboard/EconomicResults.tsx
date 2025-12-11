@@ -4,6 +4,9 @@ import { useUnit } from "@/contexts/UnitContext";
 import { TrendingUp, TrendingDown, CheckCircle } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
+// Recovered value from compliance/audit processes (from Module 5)
+const recoveredFromAudit = 37000;
+
 const comparisonData = [
   { month: "Jan", antes: 85000, atual: 52000 },
   { month: "Fev", antes: 92000, atual: 48000 },
@@ -14,24 +17,28 @@ const comparisonData = [
 ];
 
 const savingsBreakdown = [
-  { name: "Geração Solar", value: 40, color: "hsl(var(--primary))" },
-  { name: "Otimização de Geradores", value: 20, color: "hsl(var(--chart-2))" },
-  { name: "Climatização/HVAC", value: 25, color: "hsl(var(--chart-3))" },
-  { name: "Correção de Faturas", value: 15, color: "hsl(var(--chart-4))" },
+  { name: "Geração Solar", value: 35, color: "hsl(var(--primary))" },
+  { name: "Otimização de Geradores", value: 18, color: "hsl(var(--chart-2))" },
+  { name: "Climatização/HVAC", value: 22, color: "hsl(var(--chart-3))" },
+  { name: "Correção de Faturas", value: 12, color: "hsl(var(--chart-4))" },
+  { name: "Recuperação de Créditos", value: 13, color: "hsl(142, 71%, 45%)" },
 ];
 
 const indicatorsData = [
-  { indicator: "Consumo Diesel", before: "5.000 L", after: "3.200 L", variation: "-36%" },
-  { indicator: "Custo Energia", before: "R$ 520.000", after: "R$ 291.000", variation: "-44%" },
-  { indicator: "Downtime", before: "48h/mês", after: "8h/mês", variation: "-83%" },
-  { indicator: "Eficiência Geral", before: "68%", after: "92%", variation: "+35%" },
-  { indicator: "CO₂ Evitado", before: "0 ton", after: "45 ton", variation: "+100%" },
+  { indicator: "Consumo Diesel", before: "5.000 L", after: "3.200 L", variation: "-36%", isPositive: true },
+  { indicator: "Custo Energia", before: "R$ 520.000", after: "R$ 291.000", variation: "-44%", isPositive: true },
+  { indicator: "Downtime", before: "48h/mês", after: "8h/mês", variation: "-83%", isPositive: true },
+  { indicator: "Eficiência Geral", before: "68%", after: "92%", variation: "+35%", isPositive: true },
+  { indicator: "CO₂ Evitado", before: "0 ton", after: "45 ton", variation: "+100%", isPositive: true },
+  { indicator: "Recuperação de Créditos", before: "R$ 0,00", after: `R$ ${recoveredFromAudit.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, variation: "+∞", isPositive: true },
 ];
 
 const EconomicResults = () => {
   const { selectedUnit } = useUnit();
 
-  const totalSavings = 1847532.00;
+  // Total savings now includes recovered audit value
+  const baseSavings = 1810532.00;
+  const totalSavings = baseSavings + recoveredFromAudit;
 
   return (
     <div className="space-y-6">
@@ -54,7 +61,7 @@ const EconomicResults = () => {
               R$ {totalSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </div>
             <p className="text-muted-foreground">
-              Soma das economias operacionais + Geração Solar + Correção de Geradores
+              Soma das economias operacionais + Geração Solar + Recuperação de Créditos por Auditoria
             </p>
           </div>
         </CardContent>
@@ -210,30 +217,19 @@ const EconomicResults = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {indicatorsData.map((item, index) => {
-                const isPositive = item.variation.startsWith('+') || item.variation.startsWith('-') && parseFloat(item.variation) < 0;
-                const variationColor = item.indicator === "Eficiência Geral" || item.indicator === "CO₂ Evitado" 
-                  ? "text-green-500" 
-                  : item.variation.startsWith('-') ? "text-green-500" : "text-destructive";
-                
-                return (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.indicator}</TableCell>
-                    <TableCell className="text-muted-foreground">{item.before}</TableCell>
-                    <TableCell>{item.after}</TableCell>
-                    <TableCell className={`text-right font-bold ${variationColor}`}>
-                      <div className="flex items-center justify-end gap-1">
-                        {item.variation.startsWith('-') || item.indicator === "Eficiência Geral" || item.indicator === "CO₂ Evitado" ? (
-                          <TrendingDown className="h-4 w-4" />
-                        ) : (
-                          <TrendingUp className="h-4 w-4" />
-                        )}
-                        {item.variation}
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {indicatorsData.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium">{item.indicator}</TableCell>
+                  <TableCell className="text-muted-foreground">{item.before}</TableCell>
+                  <TableCell>{item.after}</TableCell>
+                  <TableCell className="text-right font-bold text-green-500">
+                    <div className="flex items-center justify-end gap-1">
+                      <TrendingUp className="h-4 w-4" />
+                      {item.variation}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </CardContent>
