@@ -14,6 +14,7 @@ import {
   TrendingUp 
 } from "lucide-react";
 import logo from "@/assets/cefe-logo.png";
+import logoCefe from "@/assets/cefe-logo-original.png";
 import marbleHero from "@/assets/marble-quarry-hero.png";
 //Alterado aqui
 const partners = [
@@ -105,8 +106,8 @@ const Landing = () => {
           {/* Navbar */}
           <nav className="h-16 flex items-center justify-between px-6 md:px-12">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="CEFE Logo" className="h-10 w-10" />
-              <span className="text-xl font-bold text-white">CEFE</span>
+              <img src={logoCefe} alt="CEFE Logo" className="h-10 w-10" />
+              <span className="text-xl font-bold text-white">CEFE - THOR</span>
             </div>
             <Button 
               onClick={() => navigate("/login")} 
@@ -121,15 +122,15 @@ const Landing = () => {
           <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
             <div className="max-w-4xl mx-auto">
               <div className="flex justify-center mb-8">
-                <img src={logo} alt="CEFE Logo" className="h-28 w-28" />
+                <img src={logo} alt="CEFE Logo" className="h-20 w-60" />
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                CEFE
+                CEFE - THOR
               </h1>
               
               <h2 className="text-xl md:text-2xl text-white/90 mb-6">
-                Central de Eficiência Energética da Thor
+                Central de Eficiência Energética da Thor Natural Stones
               </h2>
               
               <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto">

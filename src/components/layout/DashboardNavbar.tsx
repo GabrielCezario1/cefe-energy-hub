@@ -41,8 +41,8 @@ export function DashboardNavbar() {
       <SidebarTrigger />
       
       <div className="flex items-center gap-2">
-        <img src={logo} alt="CEFE" className="h-8 w-8" />
-        <span className="font-bold text-lg hidden sm:inline">CEFE</span>
+        <img src={logo} alt="CEFE" className="h-10 w-30" />
+        <span className="font-bold text-lg hidden sm:inline">CEFE - THOR</span>
       </div>
 
       <div className="flex-1 flex justify-center">
