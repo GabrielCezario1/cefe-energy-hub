@@ -11,6 +11,7 @@ import {
   Headphones,
   Fuel,
   TrendingUp,
+  Building2,
 } from "lucide-react";
 import {
   Sidebar,
@@ -64,6 +65,11 @@ const menuItems = [
     title: "Suporte Técnico",
     url: "/dashboard/support",
     icon: Headphones,
+  },
+  {
+    title: "Gerenciamento de Energia",
+    url: "/dashboard/energy-management",
+    icon: Building2,
   },
   {
     title: "Gestão de Geradores",
