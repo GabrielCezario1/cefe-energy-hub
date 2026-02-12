@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { units } from "@/lib/units";
 import { useUnit } from "@/contexts/UnitContext";
 import { MapPin, Zap } from "lucide-react";
-import logo from "@/assets/cefe-logo-original.png";
+import logo from "@/assets/cefe-logo.png";
 
 const UnitSelection = () => {
   const navigate = useNavigate();

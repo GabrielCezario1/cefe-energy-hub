@@ -14,7 +14,6 @@ import {
   TrendingUp 
 } from "lucide-react";
 import logo from "@/assets/cefe-logo.png";
-import logoCefe from "@/assets/cefe-logo-original.png";
 import marbleHero from "@/assets/marble-quarry-hero.png";
 //Alterado aqui
 const partners = [
@@ -106,8 +105,8 @@ const Landing = () => {
           {/* Navbar */}
           <nav className="h-16 flex items-center justify-between px-6 md:px-12">
             <div className="flex items-center gap-3">
-              <img src={logoCefe} alt="CEFE Logo" className="h-10 w-10" />
-              <span className="text-xl font-bold text-white">CEFE - THOR</span>
+              <img src={logo} alt="CEFE Logo" className="h-10 w-10" />
+              <span className="text-xl font-bold text-white">CEFE</span>
             </div>
             <Button 
               onClick={() => navigate("/login")} 
@@ -121,18 +120,16 @@ const Landing = () => {
           {/* Hero Content */}
           <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
             <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-center gap-4 mb-8 text-white">
-                <img src={logoCefe} alt="Logo CEFE - Thor" className="h-20 w-20 object-contain" />
-                <span className="text-2xl font-semibold">|</span>
-                <img src={logo} alt="CEFE Logo" className="h-20 w-60" />
+              <div className="flex justify-center mb-8">
+                <img src={logo} alt="CEFE Logo" className="h-28 w-28" />
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                CEFE - THOR
+                CEFE
               </h1>
               
               <h2 className="text-xl md:text-2xl text-white/90 mb-6">
-                Central de Eficiência Energética da Thor Natural Stones
+                Central de Eficiência Energética da Thor
               </h2>
               
               <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto">

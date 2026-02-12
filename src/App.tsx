@@ -18,8 +18,6 @@ import Communication from "./pages/dashboard/Communication";
 import Support from "./pages/dashboard/Support";
 import Generators from "./pages/dashboard/Generators";
 import EconomicResults from "./pages/dashboard/EconomicResults";
-import EnergyManagement from "./pages/dashboard/EnergyManagement";
-import EnergyManagementWarehouse from "./pages/dashboard/EnergyManagementWarehouse";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,8 +43,6 @@ const App = () => (
             <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
             <Route path="/dashboard/generators" element={<DashboardLayout><Generators /></DashboardLayout>} />
             <Route path="/dashboard/economic-results" element={<DashboardLayout><EconomicResults /></DashboardLayout>} />
-            <Route path="/dashboard/energy-management" element={<DashboardLayout><EnergyManagement /></DashboardLayout>} />
-            <Route path="/dashboard/energy-management/warehouse/:warehouseId" element={<DashboardLayout><EnergyManagementWarehouse /></DashboardLayout>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
