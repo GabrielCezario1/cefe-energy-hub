@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import {
   Zap,
   DollarSign,
+  Building2,
   Radio,
   Battery,
   FileCheck,
@@ -74,6 +75,11 @@ const menuItems = [
     title: "Resultado Econômico",
     url: "/dashboard/economic-results",
     icon: TrendingUp,
+  },
+  {
+    title: "Gerenciamento de Energia",
+    url: "/dashboard/energy-management",
+    icon: Building2,
   },
 ];
 
