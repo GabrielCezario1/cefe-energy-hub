@@ -11,12 +11,11 @@ interface Props {
 export function WarehouseKpiCards({ consumption, cost, power }: Props) {
   const kpis = [
     { title: "Consumo Acumulado", value: `${formatNumber(consumption)} kWh`, icon: Zap, borderColor: "border-l-primary" },
-    { title: "Custo Acumulado", value: formatBRL(cost), icon: DollarSign, borderColor: "border-l-[hsl(var(--chart-1))]" },
-    { title: "Potência Disponibilizada", value: `${formatNumber(power)} kW`, icon: Gauge, borderColor: "border-l-[hsl(var(--chart-2))]" },
+    { title: "Demanda Contratada", value: `${formatNumber(power)} kW`, icon: Gauge, borderColor: "border-l-[hsl(var(--chart-2))]" },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {kpis.map((kpi) => (
         <Card key={kpi.title} className={`border-l-4 ${kpi.borderColor}`}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">

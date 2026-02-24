@@ -14,6 +14,8 @@ export interface CondominiumInvoice {
   month: string;
   totalValue: number;
   totalConsumptionKwh: number;
+  solarConsumptionKwh: number;
+  gridConsumptionKwh: number;
   availablePower: number;
   demoItems: InvoiceDemoItem[];
 }
@@ -87,9 +89,9 @@ function varyItems(items: InvoiceDemoItem[], factor: number): InvoiceDemoItem[] 
 }
 
 export const condominiumInvoices: CondominiumInvoice[] = [
-  { month: "2026-01", totalValue: 25122.45, totalConsumptionKwh: 33943, availablePower: 150, demoItems: varyItems(baseDemoItems, 1.0) },
-  { month: "2026-02", totalValue: 23850.10, totalConsumptionKwh: 31200, availablePower: 150, demoItems: varyItems(baseDemoItems, 0.94) },
-  { month: "2026-03", totalValue: 26480.78, totalConsumptionKwh: 35100, availablePower: 150, demoItems: varyItems(baseDemoItems, 1.05) },
+  { month: "2026-01", totalValue: 25122.45, totalConsumptionKwh: 33943, solarConsumptionKwh: 12200, gridConsumptionKwh: 21743, availablePower: 150, demoItems: varyItems(baseDemoItems, 1.0) },
+  { month: "2026-02", totalValue: 23850.10, totalConsumptionKwh: 31200, solarConsumptionKwh: 11050, gridConsumptionKwh: 20150, availablePower: 150, demoItems: varyItems(baseDemoItems, 0.94) },
+  { month: "2026-03", totalValue: 26480.78, totalConsumptionKwh: 35100, solarConsumptionKwh: 13400, gridConsumptionKwh: 21700, availablePower: 150, demoItems: varyItems(baseDemoItems, 1.05) },
 ];
 
 export const availableMonths = ["2026-01", "2026-02", "2026-03"];

@@ -60,17 +60,18 @@ const WarehouseDetail = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard/energy-management")}>
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold">{warehouse.name}</h1>
-          <p className="text-muted-foreground">Dados do módulo Embrasul MD50</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard/energy-management")}>
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold">{warehouse.name}</h1>
+            <p className="text-muted-foreground">Dados do módulo Embrasul MD50</p>
+          </div>
         </div>
+        <MonthSelector value={selectedMonth} onChange={setSelectedMonth} availableMonths={availableMonths} />
       </div>
-
-      <MonthSelector value={selectedMonth} onChange={setSelectedMonth} availableMonths={availableMonths} />
 
       <WarehouseKpiCards
         consumption={currentMonthData.totalConsumptionKwh}

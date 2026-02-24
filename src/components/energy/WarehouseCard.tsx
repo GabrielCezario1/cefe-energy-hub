@@ -35,13 +35,14 @@ export function WarehouseCard({ warehouse, colorIndex = 0 }: Props) {
           <Zap className={`h-4 w-4 ${colors.icon}`} />
         </div>
       </CardHeader>
-      <CardContent className="space-y-1">
-        <div className="flex items-center gap-1">
-          <Badge variant="outline" className="text-xs font-normal">
+      <CardContent>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground">Consumo</span>
+          <Badge className={`text-sm font-semibold ${colors.bg} ${colors.icon} border`}>
             {formatNumber(warehouse.totalConsumptionKwh)} kWh
           </Badge>
         </div>
-        <p className="text-lg font-semibold">{formatBRL(warehouse.totalCostBrl)}</p>
+        {/* <p className="text-lg font-semibold">{formatBRL(warehouse.totalCostBrl)}</p> */}
       </CardContent>
     </Card>
   );

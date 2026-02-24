@@ -40,30 +40,32 @@ const EnergyManagement = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      <div>
-        <h1 className="text-2xl font-bold">Gerenciamento de Energia — Condomínio TH01</h1>
-        <p className="text-muted-foreground">Dados da fatura mensal Enel</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold">Gerenciamento de Energia — Condomínio TH01</h1>
+          <p className="text-muted-foreground">Dados da fatura mensal Enel</p>
+        </div>
+        <MonthSelector value={selectedMonth} onChange={setSelectedMonth} availableMonths={availableMonths} />
       </div>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <MonthSelector value={selectedMonth} onChange={setSelectedMonth} availableMonths={availableMonths} />
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <Button variant="outline" onClick={() => setEditOpen(true)}>
             <Pencil className="h-4 w-4 mr-1" /> Editar Fatura
           </Button>
           <Button variant="outline" onClick={() => setSendOpen(true)}>
             <Send className="h-4 w-4 mr-1" /> Enviar Faturas
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <CondominiumKpiCards
-        totalValue={invoice.totalValue}
-        totalConsumption={invoice.totalConsumptionKwh}
+        solarConsumption={invoice.solarConsumptionKwh}
+        gridConsumption={invoice.gridConsumptionKwh}
         availablePower={invoice.availablePower}
       />
 
-      <InvoiceDemoTable items={invoice.demoItems} />
+      {/* <InvoiceDemoTable items={invoice.demoItems} /> */}
 
       <WarehouseCardList warehouses={warehouses} />
 
