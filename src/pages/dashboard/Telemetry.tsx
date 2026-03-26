@@ -12,8 +12,8 @@ import {
 // ─── Mock: Telemetria Tempo Real ─────────────────────────────────────────────
 const telemetriaTempoReal = {
   frequenciaHz: 59.98,
-  tensaoL1L2V: 380.5,
-  tensaoL2L3V: 381.2,
+  tensaoL1L2V: 355.3,
+  tensaoL2L3V: 356.1,
   tensaoL3L1V: 379.8,
   fatorPotencia: 0.97,
   potenciaReativaKvar: 45.2,
@@ -25,7 +25,7 @@ const telemetriaTempoReal = {
   modoPeakShaving: false,
   irradiacaoWm2: 847.0,
   temperaturaAmbienteC: 28.0,
-  temperaturaCabineC: 68.0,
+  temperaturaCabineC: 45.0,
   dataLeitura: "2026-02-23T14:30:00",
 };
 
@@ -74,7 +74,7 @@ const logAlertas = [
 // ─── Helpers de Classificação ────────────────────────────────────────────────
 const classificarTensao = (v: number) => {
   if (v < 350 || v > 420) return { label: "Crítico", variant: "destructive" as const };
-  if (v < 370 || v > 400) return { label: "Alerta", variant: "secondary" as const };
+  if (v < 360 || v > 400) return { label: "Alerta", variant: "destructive" as const };
   return { label: "Normal", variant: "default" as const };
 };
 
