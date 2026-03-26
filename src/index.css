@@ -20,7 +20,7 @@ All colors MUST be HSL.
     --popover: 20 5% 90%;
     --popover-foreground: 24 9% 10%;
 
-    --primary: 37 92% 50%;
+    --primary: 142 71% 45%;
     --primary-foreground: 47 100% 96%;
 
     --secondary: 24 5% 44%;
@@ -37,7 +37,7 @@ All colors MUST be HSL.
 
     --border: 23 5% 82%;
     --input: 23 5% 82%;
-    --ring: 37 92% 50%;
+    --ring: 142 71% 45%;
 
     --radius: 1rem;
 
@@ -45,7 +45,7 @@ All colors MUST be HSL.
 
     --sidebar-foreground: 24 9% 10%;
 
-    --sidebar-primary: 37 92% 50%;
+    --sidebar-primary: 142 71% 45%;
 
     --sidebar-primary-foreground: 47 100% 96%;
 
@@ -55,7 +55,7 @@ All colors MUST be HSL.
 
     --sidebar-border: 23 5% 82%;
 
-    --sidebar-ring: 37 92% 50%;
+    --sidebar-ring: 142 71% 45%;
 
     --chart-1: 45 96% 64%;
 

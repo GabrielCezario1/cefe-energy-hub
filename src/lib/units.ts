@@ -33,6 +33,14 @@ export const units: Unit[] = [
     installDate: "2023-01-10",
   },
   {
+    id: "matira",
+    name: "Matira",
+    location: "Espírito Santo",
+    state: "ES",
+    installedCapacity: "3.0 MWp",
+    installDate: "2024-02-10",
+  },
+  {
     id: "thor",
     name: "Thor",
     location: "Espírito Santo",
