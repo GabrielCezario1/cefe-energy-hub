@@ -1,9 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { useUnit } from "@/contexts/UnitContext";
-import { Fuel, Clock, Zap, DollarSign } from "lucide-react";
+import { Fuel, Clock, Zap, DollarSign, Wrench, Camera, Power, CalendarCheck, AlertTriangle } from "lucide-react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
+// ─── Mock: Consumo vs Geração Semanal ────────────────────────────────────────
 const generatorData = [
   { day: "Seg", consumo: 120, geracao: 480 },
   { day: "Ter", consumo: 95, geracao: 420 },
@@ -14,6 +16,7 @@ const generatorData = [
   { day: "Dom", consumo: 45, geracao: 180 },
 ];
 
+// ─── Mock: Abastecimentos ────────────────────────────────────────────────────
 const refuelingData = [
   { id: 1, date: "2024-01-15", liters: 500, horimetroInicial: 12450, horimetroFinal: 12520, cost: 2750.00 },
   { id: 2, date: "2024-01-22", liters: 450, horimetroInicial: 12520, horimetroFinal: 12585, cost: 2475.00 },
@@ -22,6 +25,72 @@ const refuelingData = [
   { id: 5, date: "2024-02-12", liters: 400, horimetroInicial: 12730, horimetroFinal: 12790, cost: 2200.00 },
 ];
 
+// ─── Mock: Status do Gerador ─────────────────────────────────────────────────
+const generatorStatus = {
+  modelo: "Cummins C350 D5",
+  potenciaNominal: "350 kVA",
+  status: "Standby" as "Operando" | "Standby" | "Manutenção",
+  horimetroAtual: 12790,
+  ultimaTrocaOleo: "2025-12-10",
+  proximaTrocaOleo: "2026-03-10",
+  ultimaTrocaFiltros: "2025-12-10",
+  proximaTrocaFiltros: "2026-06-10",
+};
+
+// ─── Mock: Registro de Manutenções com Fotos ─────────────────────────────────
+const maintenanceLog = [
+  {
+    id: 1,
+    tipo: "Troca de Óleo + Filtros",
+    data: "2025-12-10",
+    responsavel: "Carlos A. Silva",
+    assinatura: true,
+    fotos: 3,
+    observacao: "Óleo Mobil Delvac 15W40 — 18L. Filtros de óleo, combustível e ar substituídos.",
+  },
+  {
+    id: 2,
+    tipo: "Troca de Óleo",
+    data: "2025-09-05",
+    responsavel: "João P. Santos",
+    assinatura: true,
+    fotos: 2,
+    observacao: "Troca preventiva. Horímetro: 11.820h.",
+  },
+  {
+    id: 3,
+    tipo: "Troca de Filtros",
+    data: "2025-06-18",
+    responsavel: "Carlos A. Silva",
+    assinatura: true,
+    fotos: 4,
+    observacao: "Filtro de ar com acúmulo excessivo. Substituição antecipada.",
+  },
+];
+
+// ─── Mock: Consumo Mensal de Diesel ──────────────────────────────────────────
+const monthlyDieselData = [
+  { mes: "Set/2025", consumoL: 1800, precoLitro: 5.89, ativacoes: 8 },
+  { mes: "Out/2025", consumoL: 2100, precoLitro: 5.95, ativacoes: 12 },
+  { mes: "Nov/2025", consumoL: 1650, precoLitro: 6.02, ativacoes: 6 },
+  { mes: "Dez/2025", consumoL: 2350, precoLitro: 6.10, ativacoes: 14 },
+  { mes: "Jan/2026", consumoL: 2500, precoLitro: 6.15, ativacoes: 16 },
+  { mes: "Fev/2026", consumoL: 1950, precoLitro: 6.20, ativacoes: 10 },
+  { mes: "Mar/2026", consumoL: 980, precoLitro: 6.25, ativacoes: 5 },
+];
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+const statusColor = (s: string) => {
+  if (s === "Operando") return "default" as const;
+  if (s === "Standby") return "secondary" as const;
+  return "outline" as const;
+};
+
+const diasRestantes = (dataFutura: string) => {
+  const diff = new Date(dataFutura).getTime() - new Date().getTime();
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+};
+
 const Generators = () => {
   const { selectedUnit } = useUnit();
 
@@ -29,6 +98,9 @@ const Generators = () => {
   const operatingHours = 340;
   const efficiency = 3.8;
   const averageCost = 1.45;
+
+  const diasOleo = diasRestantes(generatorStatus.proximaTrocaOleo);
+  const diasFiltros = diasRestantes(generatorStatus.proximaTrocaFiltros);
 
   return (
     <div className="space-y-6">
@@ -85,6 +157,193 @@ const Generators = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* ── Status do Gerador + Manutenção ──────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Power className="h-5 w-5" />
+              Status do Gerador
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Modelo</span>
+              <span className="font-semibold">{generatorStatus.modelo}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Potência Nominal</span>
+              <span className="font-semibold">{generatorStatus.potenciaNominal}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Status</span>
+              <Badge variant={statusColor(generatorStatus.status)}>{generatorStatus.status}</Badge>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Horímetro Atual</span>
+              <span className="font-semibold">{generatorStatus.horimetroAtual.toLocaleString()}h</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CalendarCheck className="h-5 w-5" />
+              Manutenção Preventiva
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 rounded-lg border border-border">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium flex items-center gap-2">
+                  <Wrench className="h-4 w-4" /> Troca de Óleo
+                </span>
+                {diasOleo <= 15 ? (
+                  <Badge variant="destructive" className="flex items-center gap-1">
+                    <AlertTriangle className="h-3 w-3" /> {diasOleo}d restantes
+                  </Badge>
+                ) : (
+                  <Badge variant="default">{diasOleo}d restantes</Badge>
+                )}
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                <span>Última: {new Date(generatorStatus.ultimaTrocaOleo).toLocaleDateString("pt-BR")}</span>
+                <span>Próxima: {new Date(generatorStatus.proximaTrocaOleo).toLocaleDateString("pt-BR")}</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-lg border border-border">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium flex items-center gap-2">
+                  <Wrench className="h-4 w-4" /> Troca de Filtros
+                </span>
+                {diasFiltros <= 30 ? (
+                  <Badge variant="secondary">{diasFiltros}d restantes</Badge>
+                ) : (
+                  <Badge variant="default">{diasFiltros}d restantes</Badge>
+                )}
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                <span>Última: {new Date(generatorStatus.ultimaTrocaFiltros).toLocaleDateString("pt-BR")}</span>
+                <span>Próxima: {new Date(generatorStatus.proximaTrocaFiltros).toLocaleDateString("pt-BR")}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* ── Registro de Manutenções (Fotos + Assinatura) ───────────────── */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Camera className="h-5 w-5" />
+            Registro de Manutenções
+          </CardTitle>
+          <CardDescription>Histórico com fotos e assinatura do responsável</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Data</TableHead>
+                <TableHead>Tipo</TableHead>
+                <TableHead>Responsável</TableHead>
+                <TableHead>Assinatura</TableHead>
+                <TableHead>Fotos</TableHead>
+                <TableHead>Observação</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {maintenanceLog.map((m) => (
+                <TableRow key={m.id}>
+                  <TableCell className="whitespace-nowrap">
+                    {new Date(m.data).toLocaleDateString("pt-BR")}
+                  </TableCell>
+                  <TableCell className="font-medium">{m.tipo}</TableCell>
+                  <TableCell>{m.responsavel}</TableCell>
+                  <TableCell>
+                    {m.assinatura ? (
+                      <Badge variant="default">✓ Assinado</Badge>
+                    ) : (
+                      <Badge variant="destructive">Pendente</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline" className="flex items-center gap-1 w-fit">
+                      <Camera className="h-3 w-3" /> {m.fotos} foto{m.fotos > 1 ? "s" : ""}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground max-w-[280px] truncate">
+                    {m.observacao}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      {/* ── Consumo Mensal de Diesel + Custo ───────────────────────────── */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Fuel className="h-5 w-5" />
+            Consumo e Custo Mensal de Diesel
+          </CardTitle>
+          <CardDescription>Valor do diesel × consumo mensal e ativações do gerador</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Mês</TableHead>
+                <TableHead className="text-right">Consumo (L)</TableHead>
+                <TableHead className="text-right">Preço/Litro (R$)</TableHead>
+                <TableHead className="text-right">Custo Total (R$)</TableHead>
+                <TableHead className="text-center">Ativações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {monthlyDieselData.map((row) => {
+                const custoTotal = row.consumoL * row.precoLitro;
+                return (
+                  <TableRow key={row.mes}>
+                    <TableCell className="font-medium">{row.mes}</TableCell>
+                    <TableCell className="text-right">{row.consumoL.toLocaleString("pt-BR")}</TableCell>
+                    <TableCell className="text-right">
+                      R$ {row.precoLitro.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell className="text-right font-bold">
+                      R$ {custoTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Badge variant="outline">{row.ativacoes}x</Badge>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+              {/* Totalizador */}
+              <TableRow className="bg-muted/50 font-bold">
+                <TableCell>TOTAL</TableCell>
+                <TableCell className="text-right">
+                  {monthlyDieselData.reduce((s, r) => s + r.consumoL, 0).toLocaleString("pt-BR")} L
+                </TableCell>
+                <TableCell className="text-right">—</TableCell>
+                <TableCell className="text-right">
+                  R$ {monthlyDieselData
+                    .reduce((s, r) => s + r.consumoL * r.precoLitro, 0)
+                    .toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                </TableCell>
+                <TableCell className="text-center">
+                  {monthlyDieselData.reduce((s, r) => s + r.ativacoes, 0)}x
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
       {/* Chart */}
       <Card>
