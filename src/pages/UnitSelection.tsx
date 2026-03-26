@@ -6,6 +6,12 @@ import { useUnit } from "@/contexts/UnitContext";
 import { MapPin, Zap } from "lucide-react";
 import logo from "@/assets/cefe-logo.png";
 
+const getUnitColor = (unitId: string) => {
+  if (unitId === "matira") return { border: "border-red-500", icon: "text-red-500", hover: "hover:border-red-500" };
+  if (unitId === "argos") return { border: "border-amber-500", icon: "text-amber-500", hover: "hover:border-amber-500" };
+  return { border: "border-primary", icon: "text-primary", hover: "hover:border-primary" };
+};
+
 const UnitSelection = () => {
   const navigate = useNavigate();
   const { setSelectedUnit } = useUnit();
@@ -48,34 +54,37 @@ const UnitSelection = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {stateUnits.map((unit) => (
-                  <Card
-                    key={unit.id}
-                    className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 hover:border-primary"
-                    onClick={() => handleUnitSelect(unit)}
-                  >
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <CardTitle className="text-xl">{unit.name}</CardTitle>
-                        <Zap className="h-6 w-6 text-primary" />
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Capacidade:</span>
-                          <span className="font-semibold">{unit.installedCapacity}</span>
+                {stateUnits.map((unit) => {
+                  const colors = getUnitColor(unit.id);
+                  return (
+                    <Card
+                      key={unit.id}
+                      className={`cursor-pointer transition-all hover:shadow-lg hover:scale-105 border-l-4 ${colors.border} ${colors.hover}`}
+                      onClick={() => handleUnitSelect(unit)}
+                    >
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <CardTitle className="text-xl">{unit.name}</CardTitle>
+                          <Zap className={`h-6 w-6 ${colors.icon}`} />
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Instalação:</span>
-                          <span className="font-semibold">
-                            {new Date(unit.installDate).toLocaleDateString("pt-BR")}
-                          </span>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Capacidade:</span>
+                            <span className="font-semibold">{unit.installedCapacity}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Instalação:</span>
+                            <span className="font-semibold">
+                              {new Date(unit.installDate).toLocaleDateString("pt-BR")}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
             </div>
           ))}
