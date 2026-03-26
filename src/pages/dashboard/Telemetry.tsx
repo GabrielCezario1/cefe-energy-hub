@@ -74,7 +74,7 @@ const logAlertas = [
 // ─── Helpers de Classificação ────────────────────────────────────────────────
 const classificarTensao = (v: number) => {
   if (v < 350 || v > 420) return { label: "Crítico", variant: "destructive" as const };
-  if (v < 370 || v > 400) return { label: "Alerta", variant: "secondary" as const };
+  if (v < 360 || v > 400) return { label: "Alerta", variant: "destructive" as const };
   return { label: "Normal", variant: "default" as const };
 };
 
