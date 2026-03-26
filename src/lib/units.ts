@@ -18,7 +18,7 @@ export const units: Unit[] = [
   },
   {
     id: "th30-jazira",
-    name: "TH30 Jazira",
+    name: "TH30 Jazida",
     location: "Ceará",
     state: "CE",
     installedCapacity: "3.2 MWp",
