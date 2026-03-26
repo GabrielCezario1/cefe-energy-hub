@@ -35,8 +35,8 @@ export const units: Unit[] = [
   {
     id: "matira",
     name: "Matira",
-    location: "Espírito Santo",
-    state: "ES",
+    location: "Ceará",
+    state: "CE",
     installedCapacity: "3.0 MWp",
     installDate: "2024-02-10",
   },
