@@ -178,7 +178,7 @@ const Telemetry = () => {
             <div className="flex flex-col items-center gap-2 p-3 rounded-lg border">
               <Zap className="h-6 w-6 text-muted-foreground" />
               <span className="text-xs font-medium text-muted-foreground">Falta de Energia</span>
-              <Badge variant={telemetriaTempoReal.faltaDeEnergia ? "destructive" : "default"}>
+              <Badge variant={telemetriaTempoReal.faltaDeEnergia ? "destructive" : "secondary"}>
                 {telemetriaTempoReal.faltaDeEnergia ? "Falta de Energia" : "Sem Falha"}
               </Badge>
             </div>
