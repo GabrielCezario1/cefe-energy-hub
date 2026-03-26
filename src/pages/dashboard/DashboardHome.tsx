@@ -138,9 +138,9 @@ const DashboardHome = () => {
               <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-semibold text-sm">Alta Temperatura - Inversor 1</p>
+                    <p className="font-semibold text-sm">Instalação Medidor Análise de Energia</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      Temperatura acima de 65°C detectada
+                      Medidor de análise de energia pendente de instalação
                     </p>
                   </div>
                   <Badge variant="destructive">Alto</Badge>
